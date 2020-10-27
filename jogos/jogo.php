@@ -9,17 +9,17 @@
         private $desenvolvedor;
         private $nota;
         private $foto;
-        private $destribuidora;
+        private $distribuidora;
 
-        public function __construct($idJogo, $nome, $descricao, $genero, $desenvolvedor, $nota, $foto, $destribuidora){
+        public function __construct($idJogo, $nome, $descricao, $genero, $desenvolvedor, $nota, $distribuidora){
             $this->idJogo = $idJogo;
             $this->nome = $nome;
             $this->descricao = $descricao;
             $this->genero = $genero;
             $this->desenvolvedor = $desenvolvedor;
             $this->nota = $nota;
-            $this->foto = $foto;
-            $this->destribuidora = $destribuidora;
+            $this->foto = "";
+            $this->distribuidora = $distribuidora;
         }
         
         public function getIdJogo(){
@@ -74,12 +74,12 @@
             $this->foto = $novaFoto;
         }
 
-        public function getDestribuidora(){
-            return $this->destribuidora;
+        public function getDistribuidora(){
+            return $this->distribuidora;
         }
 
-        public function setDestribuidora($novaDestribuidora){
-            $this->destribuidora = $novaDestribuidora;
+        public function setDistribuidora($novaDistribuidora){
+            $this->distribuidora = $novaDistribuidora;
         }
 
         public function __toString(){
@@ -89,7 +89,8 @@
             $texto = "".$this->genero."<br>";
             $texto = "".$this->desenvolvedor."<br>";
             $texto = "".$this->nota."<br>";
-            $texto = "".$this->destribuidora."<br>";
+            $texto = "".$this->distribuidora."<br>";
+            return $texto;
         }
         
     }

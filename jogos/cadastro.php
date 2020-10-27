@@ -24,12 +24,28 @@
         include_once "jogoDAO.php";
 
         session_start();
+
         if(!isset($_SESSION["modo"])){
-            $_SESSION["modo"] = 0;
+            $_SESSION["modo"] = 1;
         }
+
+        $nome = "";
+        $descricao = "";
+        $genero = "";
+        $desenvolvedor = "";
+        $nota = "";
+        $distribuidora = "";
         
         if(isset($_GET["botaoAcao"])){
             if($_GET["botaoAcao"]=="Gravar"){
+
+            $nome = $_GET["nome"];
+            $descricao = $_GET["descricao"];
+            $genero = $_GET["genero"];
+            $desenvolvedor = $_GET["desenvolvedor"];
+            $nota = $_GET["nota"];
+            $distribuidora = $_GET["distribuidora"];
+
                 $pAux = new Jogo(
                     null,
                     $_GET["nome"],
@@ -38,19 +54,20 @@
                     $_GET["desenvolvedor"],
                     $_GET["nota"],
                     null,
-                    $_GET["destribuidora"]
+                    $_GET["distribuidora"]
+                    
                 );
                 if($_SESSION["modo"]==1)
                     JogoDAO::inserir($pAux);
                 else
-                    JogoDAO::atualizar($pAux);
+                JogoDAO::atualizar($pAux);
             } else if($_GET["botaoAcao"]=="Excluir"){
-                    JogoDAO::excluir($_GET["nome"]);
+                JogoDAO::excluir($_GET["nome"]);
             }
 
             if(isset($_GET["botaoAcao"])){
                 if($_GET["botaoAcao"]=="Excluir" || $_GET["botaoAcao"]=="Inserir"){
-                    $_SESSION["modo"] = 1;
+                    $_SESSION["modo"] = 1; 
                 } else {
                     $_SESSION["modo"] = 2;
                 }
@@ -86,34 +103,38 @@
         </div>
 
         <br><br>
-        <div class="row cadastro" style="background-color: rgba(0, 0, 0, 0.5); color: white" id="areaCadastro">
+        <div class="row" id="areaCadastro" style="background-color: rgba(0, 0, 0, 0.5); color: white;">
             <div class="col-md-4 offset-md-4">
-                <label for="nome">Nome</label>
-                <input type="text" name="nome" value= <?php if($_SESSION["modo"]==2) echo $_GET["nome"]; else echo ""; ?>   >
+                <strong><label for="nome">Nome</label></strong>
+                <input type="text" name="nome" value= <?php if($_SESSION["modo"]==2) echo $nome; else echo ""; ?>   >
             </div>
             <div class="col-md-4 offset-md-4">
-                <label for="descricao">Descrição</label>
-                <input type="text" name="descricao" value= <?php if($_SESSION["modo"]==2) echo $_GET["descricao"]; else echo ""; ?>   >
+                <strong><label for="descricao">Descrição</label></strong>
+                <input type="textarea" name="descricao" id="descricao" value= <?php if($_SESSION["modo"]==2) echo $descricao; else echo "";    ?> >
             </div>
             <div class="col-md-4 offset-md-4">
-                <label for="genero">Gênero</label>
-                <input type="text" name="genero" value= <?php if($_SESSION["modo"]==2) echo $_GET["genero"]; else echo ""; ?>   >
+                <strong><label for="genero ">Genero</label></strong>
+                <input type="text" name="genero" value= <?php if($_SESSION["modo"]==2) echo $genero; else echo "";   ?> >
             </div>
             <div class="col-md-4 offset-md-4">
-               <label for="desenvolvedor">Desenvolvedor</label>
-                <input type="text" name="desenvolvedor" value= <?php if($_SESSION["modo"]==2) echo $_GET["desenvolvedor"]; else echo ""; ?>   >
+                <strong><label for="desenvolvedor">Desenvolvedor</label></strong>
+                <input type="text" name="desenvolvedor" value= <?php if($_SESSION["modo"]==2) echo $desenvolvedor; else echo "";   ?> >
             </div>
             <div class="col-md-4 offset-md-4">
-                <label for="nota">Nota</label>
-                <input type="text" name="nota" value= <?php if($_SESSION["modo"]==2) echo $_GET["nota"]; else echo ""; ?>   >
+                <strong><label for="nota">Nota</label></strong>
+                <input type="text" name="nota" value= <?php if($_SESSION["modo"]==2) echo $nota; else echo "";   ?> >
             </div>
             <div class="col-md-4 offset-md-4">
-                <label for="destribuidora">Destribuidora</label>
-                <input type="text" name="destribuidora" value= <?php if($_SESSION["modo"]==2) echo $_GET["destribuidora"]; else echo ""; ?>   >
+                <strong><label for="distribuidora">Distribuidora</label></strong>
+                <input type="text" name="distribuidora" value= <?php if($_SESSION["modo"]==2) echo $distribuidora; else echo "";   ?> >
             </div>
+            <br>
 
         </div>
 
+        </form>
+
+    </div>
         </form>
 
 

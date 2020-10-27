@@ -1,27 +1,27 @@
 <?php
-
-include "conexao.php";
+    include "conexao.php";
 
     class JogoDAO{
         
+
         public static function inserir($jogo){
             $con = Conexao::getConexao();
             $sql = $con->
-                prepare("insert into jogos values (null,?,?,?,?,?,'',?)");
+                prepare("insert into jogos values (null,?,?,?,?,?,null,?)");
             
             $nome = $jogo->getNome();
             $descricao = $jogo->getDescricao();
             $genero = $jogo->getGenero();
             $desenvolvedor = $jogo->getDesenvolvedor();
             $nota = $jogo->getNota();
-            $destribuidora = $jogo->getDestribuidora();
+            $distribuidora = $jogo->getDistribuidora();
             
             $sql->bindParam(1, $nome);
             $sql->bindParam(2, $descricao);
             $sql->bindParam(3, $genero);
             $sql->bindParam(4, $desenvolvedor);
             $sql->bindParam(5, $nota);
-            $sql->bindParam(6, $destribuidora);
+            $sql->bindParam(6, $distribuidora);
             
             $sql->execute();
         }
@@ -53,17 +53,17 @@ include "conexao.php";
             $genero = $jogo->getGenero();
             $desenvolvedor = $jogo->getDesenvolvedor();
             $nota = $jogo->getNota();
-            $destribuidora = $jogo->getDestribuidora();
-            $foto = "";
+            $distribuidora = $jogo->getDistribuidora();
+            
 
             if($codigo>0){
                 $sql = $con->prepare("update jogos set nome=?, descricao=?, 
-                genero=?, desenvolvedor=?, nota=?, foto=?, destribuidora=? where idjogo=?");
+                genero=?, desenvolvedor=?, nota=?, distribuidora=? where idjogo=?");
                 $sql->bindParam(7, $codigo);
             } else {
                 $sql = $con->prepare("update jogos set nome=?, descricao=?, 
-                genero=?, desenvolvedor=?, nota=?, foto=?, destribuidora=? where nome=?");
-                $sql->bindParam(8, $nome);
+                genero=?, desenvolvedor=?, nota=?, distribuidora=? where nome=?");
+                $sql->bindParam(7, $nome);
             }
 
             $sql->bindParam(1, $nome);
@@ -71,8 +71,7 @@ include "conexao.php";
             $sql->bindParam(3, $genero);
             $sql->bindParam(4, $desenvolvedor);
             $sql->bindParam(5, $nota);
-            $sql->bindParam(6, $foto);
-            $sql->bindParam(7, $destribuidora);
+            $sql->bindParam(6, $distribuidora);
             
 
             $sql->execute();
@@ -104,7 +103,7 @@ include "conexao.php";
                     $registro["desenvolvedor"],
                     $registro["nota"],
                     $registro["foto"],
-                    $registro["destribuidora"]
+                    $registro["distribuidora"]
                 );
             }
 
@@ -132,13 +131,15 @@ include "conexao.php";
                     $registro["desenvolvedor"],
                     $registro["nota"],
                     $registro["foto"],
-                    $registro["destribuidora"]
+                    $registro["distribuidora"]
                 );
                 $jogoLista[] = $jogo;
             }
 
             return $jogoLista;
         }
+
+
 
     }
 
